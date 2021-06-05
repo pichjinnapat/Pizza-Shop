@@ -1,0 +1,48 @@
+version: "3"
+services:
+  # frontend:
+  #   image: node:12
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./frontend:/usr/app
+  #     - ./upload:/usr/app/public/upload
+  #   command:
+  #     - /bin/bash
+  #     - -c
+  #     - |
+  #       cd /usr/app
+  #       npm start
+  #   depends_on:
+  #     - backend
+  backend:
+    image: node:12
+    restart: always
+    ports:
+      - 4000:4000
+    volumes:
+      - ./backend:/usr/app
+    environment:
+      - DB_URI=postgres://user:pass@localhost:5432/pizza_shop_db
+    command:
+      - /bin/bash
+      - -c
+      - |
+        cd /usr/app
+        npm run migrate
+        npm run seed
+        npm start
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: pizza_shop_db
+    ports:
+      - "5432:5432"
