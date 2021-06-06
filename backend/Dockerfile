@@ -19,7 +19,8 @@ RUN npm install
 COPY ./dist ./
 COPY ./docker ./
 COPY ./migrations ./migrations
-COPY ./migrate-mongo-config.js ./migrate-mongo-config.js
+COPY ./seeds ./seeds
+COPY ./knexfile.js ./knexfile.js
 
 EXPOSE 4000
 
