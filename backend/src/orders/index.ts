@@ -2,11 +2,11 @@ import { Router } from 'express'
 import { db } from '../database'
 
 const router = Router()
-const todosController = async (req, res): Promise<void> => {
+const getOrders = async (req, res): Promise<void> => {
   try {
     const client = await db().connect()
 
-    const sql = 'SELECT * FROM users'
+    const sql = 'SELECT * FROM orders'
     const { rows } = await client.query(sql)
     const todos = rows
 
@@ -18,6 +18,6 @@ const todosController = async (req, res): Promise<void> => {
   }
 }
 
-router.get('/', todosController)
+router.get('/', getOrders)
 
 export default router

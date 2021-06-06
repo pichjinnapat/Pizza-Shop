@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { db } from '../database'
 
 const router = Router()
-const todosController = async (req, res): Promise<void> => {
+const getUsers = async (req, res): Promise<void> => {
   try {
     const client = await db().connect()
 
@@ -18,6 +18,6 @@ const todosController = async (req, res): Promise<void> => {
   }
 }
 
-router.get('/', todosController)
+router.get('/', getUsers)
 
 export default router
