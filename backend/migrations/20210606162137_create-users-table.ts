@@ -7,9 +7,26 @@ export async function up(knex: Knex): Promise<void> {
         last_name TEXT NOT NULL,
         email TEXT NOT NULL,
         address TEXT NOT NULL,
-        created_at TIMESTAMP,
-        updated_at TIMESTAMP
-      )`
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+      );
+
+      CREATE OR REPLACE FUNCTION upd_timestamp() RETURNS TRIGGER 
+      LANGUAGE plpgsql
+      AS
+      $$
+      BEGIN
+          NEW.updated_at = CURRENT_TIMESTAMP;
+          RETURN NEW;
+      END;
+      $$;
+
+      CREATE TRIGGER users
+        BEFORE UPDATE
+        ON users
+        FOR EACH ROW
+        EXECUTE PROCEDURE upd_timestamp();
+      `
   return knex.raw(createQuery)
 }
 

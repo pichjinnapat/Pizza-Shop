@@ -20,7 +20,7 @@ COPY ./dist ./
 COPY ./docker ./
 COPY ./migrations ./migrations
 COPY ./seeds ./seeds
-COPY ./knexfile.js ./knexfile.js
+COPY ./knexfile.ts ./knexfile.ts
 
 EXPOSE 4000
 
