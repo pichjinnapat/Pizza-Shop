@@ -5,14 +5,13 @@ import logger from './logger'
 let dbClient: Pool
 
 export const initDatabase = async (
-  config: { dbUser: string; dbPassword: string; dbName: string },
+  connectionString: string,
   callBack?: () => void
 ): Promise<void> => {
-  const { dbUser, dbPassword, dbName } = config
-
   try {
     const client = new Pool({
-      connectionString: `postgres://${dbUser}:${dbPassword}@postgresdb:5432/${dbName}`,
+      connectionString,
+      // connectionString: `postgres://${dbUser}:${dbPassword}@postgresdb:5432/${dbName}`,
     })
     await client.connect()
     dbClient = client

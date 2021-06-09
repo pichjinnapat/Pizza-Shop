@@ -53,7 +53,7 @@ const createOrder = async (req, res): Promise<void> => {
 
     res.send(newOrder)
   } catch (error) {
-    res.status(error.statusCode).send(error)
+    res.status(error.statusCode).send(error.message)
   }
 }
 
@@ -105,7 +105,7 @@ const updateOrder = async (req, res): Promise<void> => {
 
     res.send(updatedOrder)
   } catch (error) {
-    res.status(error.statusCode).send(error)
+    res.status(error.statusCode).send(error.message)
   }
 }
 
@@ -126,7 +126,7 @@ const deleteOrder = async (req, res): Promise<void> => {
 
     res.send(orders)
   } catch (error) {
-    res.status(error.statusCode).send(error)
+    res.status(error.statusCode).send(error.message)
   }
 }
 
