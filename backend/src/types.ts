@@ -3,3 +3,9 @@ export interface IError {
   error: string
   message: string
 }
+
+export type BaseEntity = {
+  id?: number
+  created_at?: Date
+  updated_at?: Date
+}
