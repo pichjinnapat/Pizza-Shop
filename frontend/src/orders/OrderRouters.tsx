@@ -6,10 +6,10 @@ const OrderRouters: FunctionComponent = () => {
   return (
     <>
       <Switch>
-        <Route path={`/orders`}>
+        <Route exact path={`/orders`}>
           <OrderIndex />
         </Route>
-        <Route path={`/users/*`}>
+        <Route path={`/orders/*`}>
           <div>404</div>
         </Route>
       </Switch>

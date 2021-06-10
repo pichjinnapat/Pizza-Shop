@@ -6,10 +6,10 @@ const HomeRouters: FunctionComponent = () => {
   return (
     <>
       <Switch>
-        <Route path={`/`}>
+        <Route exact path={`/`}>
           <Home />
         </Route>
-        <Route path={`/users/*`}>
+        <Route path={`/*`}>
           <div>404</div>
         </Route>
       </Switch>
