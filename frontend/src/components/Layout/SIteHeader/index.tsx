@@ -9,7 +9,7 @@ const SiteHeader: FunctionComponent = () => {
         <img className=" top-0" src="/img/logo.png" alt="logo" />
       </button>
       <button
-        className="text-sm font-bold bg-secondary rounded-full p-2 focus:outline-none transition ease-out duration-500 hover:bg-orange-800 hover:text-white"
+        className="text-sm font-bold bg-red-500 rounded-full p-2 focus:outline-none transition ease-out duration-500 hover:bg-orange-800 text-white"
         onClick={() => history.push('/orders')}
       >
         ORDER PIZZA

@@ -13,3 +13,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+.btn-primary {
+  @apply bg-secondary rounded-full p-2 focus:outline-none transition ease-out duration-500 hover:bg-orange-700 hover:text-white;
+}

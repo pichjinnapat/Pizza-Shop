@@ -37,6 +37,7 @@
         "plugin:prettier/recommended" // Prettier recommended rules
       ],
       "rules": {
+        "camelcase":"off",
         "no-shadow": "off",
         "no-underscore-dangle": "off",
         "react/prop-types": "off", // We will use TypeScript's types for component props instead
