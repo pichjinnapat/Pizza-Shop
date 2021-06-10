@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react'
+import Layout from '../components/Layout'
 
 const Home: FunctionComponent = () => {
-  return <div>Home</div>
+  return <Layout>Home</Layout>
 }
 
 export default Home

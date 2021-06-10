@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react'
+import Layout from '../components/Layout'
 
 const UserDashboard: FunctionComponent = () => {
-  return <div>User Dashboard</div>
+  return <Layout>User Dashboard</Layout>
 }
 
 export default UserDashboard
