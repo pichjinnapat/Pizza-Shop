@@ -9,10 +9,6 @@ const UserRouters: FunctionComponent = () => {
         <Route exact path={`/users`}>
           <UserDashboard />
         </Route>
-        <Route exact path={`/users/aa`}>
-          <UserDashboard />
-          1122
-        </Route>
         <Route path={`/users/*`}>
           <div>404</div>
         </Route>

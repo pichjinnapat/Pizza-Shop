@@ -1,13 +1,18 @@
 import React, { FunctionComponent } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Home from './index'
 
 const HomeRouters: FunctionComponent = () => {
   return (
     <>
-      <Route path={`/`}>
-        <Home />
-      </Route>
+      <Switch>
+        <Route path={`/`}>
+          <Home />
+        </Route>
+        <Route path={`/users/*`}>
+          <div>404</div>
+        </Route>
+      </Switch>
     </>
   )
 }
