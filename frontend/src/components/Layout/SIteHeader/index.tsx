@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 
 const SiteHeader: FunctionComponent = () => {
-  return <div>Header</div>
+  return <div className="bg-gray-600">Header</div>
 }
 
 export default SiteHeader
