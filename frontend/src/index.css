@@ -25,3 +25,31 @@ code {
 .btn-disabled {
   @apply border-2 border-gray-200 bg-gray-200 rounded-full p-2 focus:outline-none text-gray-500 cursor-default;
 }
+
+.error-text {
+  @apply text-xs w-full text-right text-red-600;
+}
+
+.text-input {
+  @apply bg-white rounded-r-2xl p-2 focus:outline-none;
+}
+
+.text-input.error {
+  @apply bg-white rounded-r-2xl p-2 focus:outline-none box-border border-l-0 border-t border-b border-r border-red-600;
+}
+
+.label-text-input {
+  @apply bg-primary rounded-l-2xl px-2 py-1 focus:outline-none transition duration-300 ease-out border border-primary text-xl;
+}
+
+.label-text-input.error {
+  @apply bg-red-400 rounded-l-2xl px-2 py-1 focus:outline-none  border-l border-t border-b border-r-0 border-red-600 text-xl;
+}
+
+.textarea-input {
+  @apply bg-white rounded-r-2xl p-2 focus:outline-none resize-none transition duration-300 ease-out;
+}
+
+.textarea-input.error {
+  @apply bg-white rounded-r-2xl p-2 focus:outline-none resize-none transition duration-300 ease-out box-border border-l-0 border-t border-b border-r border-red-600;
+}

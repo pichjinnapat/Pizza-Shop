@@ -2,7 +2,12 @@ import React, { FunctionComponent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import Layout from '../components/Layout'
-import { setSelectedNumber, setSelectedProduct, setSelectedSize } from '../reducers/OrderReducer'
+import {
+  initialOrderState,
+  setSelectedNumber,
+  setSelectedProduct,
+  setSelectedSize,
+} from '../reducers/OrderReducer'
 import { getProducts } from '../reducers/ProductReducer'
 import { OrderState, ProductState } from '../types'
 import ProductSelector from './components/ProductSelector'
@@ -18,7 +23,12 @@ const OrderIndex: FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(getProducts())
-  }, [dispatch])
+    return () => {
+      if (history.location.pathname !== OrderRoutes.ORDER_USER_INFORMATION) {
+        dispatch(initialOrderState())
+      }
+    }
+  }, [dispatch, history.location.pathname])
 
   return (
     <Layout>
@@ -28,8 +38,8 @@ const OrderIndex: FunctionComponent = () => {
             selectProduct={(prod) => dispatch(setSelectedProduct(prod))}
             selectSize={(size) => dispatch(setSelectedSize(size))}
             selectNumber={(number) => dispatch(setSelectedNumber(number))}
-            onOrder={() => history.push(OrderRoutes.ODER_USER_INFORMATION)}
-            selected={selectedProduct === product}
+            onOrder={() => history.push(OrderRoutes.ORDER_USER_INFORMATION)}
+            selected={selectedProduct.type === product.type}
             productSize={selectedSize}
             productNumber={selectedNumber}
             key={product.id}

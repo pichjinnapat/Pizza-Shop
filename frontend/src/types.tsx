@@ -26,6 +26,13 @@ export type Product = {
   price_l: number
 }
 
+export type User = {
+  firstname: number
+  lastname: string
+  email: number
+  address: number
+}
+
 export type Order = {
   id: number
   product_id: number
@@ -44,6 +51,7 @@ export type OrderState = {
   selectedProduct: Product
   selectedSize: ProductSize
   selectedNumber: number
+  userInfo: User
   currentOrder: Order
   customerOrders: Order[]
   apiStatus: ApiStatus

@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../api'
-import { ApiStatus, Order, OrderState, Product, ProductSize } from '../types'
+import { ApiStatus, Order, OrderState, Product, ProductSize, User } from '../types'
 
 const initialState: OrderState = {
   selectedProduct: {} as Product,
   selectedSize: '' as ProductSize,
   selectedNumber: 0,
+  userInfo: {} as User,
   currentOrder: {} as Order,
   customerOrders: [],
   apiStatus: ApiStatus.idle,
@@ -35,6 +36,9 @@ const orderSlice = createSlice({
     setSelectedNumber: (orderState: OrderState, action) => {
       return { ...orderState, selectedNumber: action.payload }
     },
+    setUserInfo: (orderState: OrderState, action) => {
+      return { ...orderState, userInfo: action.payload }
+    },
     // 'getProducts/pending': (productState: ProductState) => {
     //   return { ...productState, apiStatus: ApiStatus.pending }
     // },
@@ -49,7 +53,12 @@ const orderSlice = createSlice({
 
 export const { getProducts } = asyncReducers
 
-export const { initialOrderState, setSelectedProduct, setSelectedSize, setSelectedNumber } =
-  orderSlice.actions
+export const {
+  initialOrderState,
+  setSelectedProduct,
+  setSelectedSize,
+  setSelectedNumber,
+  setUserInfo,
+} = orderSlice.actions
 
 export default orderSlice.reducer
