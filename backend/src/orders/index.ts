@@ -150,11 +150,13 @@ const getOrdersByStatus = async (req, res): Promise<void> => {
 
 const getOrdersByCustomer = async (req, res): Promise<void> => {
   try {
-    const customerId = req.params.id
+    const customerEmail = req.params.email
 
     const client = await db().connect()
 
-    const sql = `SELECT * FROM orders WHERE user_id = ${customerId}`
+    const { rows: user } = await client.query(`SELECT * FROM user WHERE email = ${customerEmail}`)
+
+    const sql = `SELECT * FROM orders WHERE user_id = ${user[0].id}`
     const { rows } = await client.query(sql)
     const orders: Order[] = rows
 
@@ -171,6 +173,6 @@ router.get('/', getOrders)
 router.put('/:id', updateOrder)
 router.post('/:id/delete', deleteOrder)
 router.get('/status/:status', getOrdersByStatus)
-router.get('/customer/:id', getOrdersByCustomer)
+router.get('/customer', getOrdersByCustomer)
 
 export default router

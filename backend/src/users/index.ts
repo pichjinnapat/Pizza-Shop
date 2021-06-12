@@ -41,6 +41,7 @@ const createUser = async (req, res): Promise<void> => {
   try {
     const user: User = req.body
     const { error } = userSchema.validate(user)
+    let returningUser: User = {} as User
 
     if (error) {
       throw new ValidationError(error.message)
@@ -48,14 +49,24 @@ const createUser = async (req, res): Promise<void> => {
 
     const client = await db().connect()
 
-    const sql = `INSERT INTO users (first_name, last_name, email, address)
-    VALUES ('${user.first_name}', '${user.last_name}', '${user.email}', '${user.address}') RETURNING *;`
-    const { rows } = await client.query(sql)
-    const newUser: User = rows[0]
+    const { rows: existingUsers } = await client.query(
+      `SELECT * FROM users WHERE email = ${user.email}`
+    )
+
+    if (existingUsers.length > 0) {
+      const existingUser = existingUsers[0]
+      returningUser = existingUser
+    } else {
+      const sql = `INSERT INTO users (first_name, last_name, email, address)
+      VALUES ('${user.first_name}', '${user.last_name}', '${user.email}', '${user.address}') RETURNING *;`
+      const { rows } = await client.query(sql)
+      const newUser = rows[0]
+      returningUser = newUser
+    }
 
     client.release()
 
-    res.send(newUser)
+    res.send(returningUser)
   } catch (error) {
     res.status(error.statusCode).send(error.message)
   }
