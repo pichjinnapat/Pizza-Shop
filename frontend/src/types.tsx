@@ -27,10 +27,10 @@ export type Product = {
 }
 
 export type User = {
-  firstname: number
+  firstname: string
   lastname: string
-  email: number
-  address: number
+  email: string
+  address: string
 }
 
 export type Order = {

@@ -17,11 +17,11 @@ type UserFormType = {
 const OrderUserInformation: FunctionComponent = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const [formData, setFormdata] = useState<UserFormType>({} as UserFormType)
-  const [errors, setErrors] = useState<UserFormType>({} as UserFormType)
-  const { selectedProduct, selectedSize, selectedNumber } = useSelector(
+  const { selectedProduct, selectedSize, selectedNumber, userInfo } = useSelector(
     (state: { orders: OrderState }) => state.orders
   )
+  const [formData, setFormdata] = useState<UserFormType>(userInfo)
+  const [errors, setErrors] = useState<UserFormType>({} as UserFormType)
 
   const productSizeName = (size: ProductSize): string => {
     if (size === ProductSize.SMALL) return 'Small'
@@ -57,18 +57,30 @@ const OrderUserInformation: FunctionComponent = () => {
 
     if (!formData.firstname) {
       error = { ...error, firstname: 'FIRSTNAME is required!' }
+    } else {
+      error = { ...error, firstname: '' }
     }
+
     if (!formData.lastname) {
       error = { ...error, lastname: 'LASTNAME is required!' }
+    } else {
+      error = { ...error, lastname: '' }
     }
+
     if (!formData.email) {
       error = { ...error, email: 'EMAIL is required!' }
+    } else {
+      error = { ...error, email: '' }
     }
+
     if (formData.email && !validateEmail(formData.email)) {
       error = { ...error, email: 'EMAIL is invalid!' }
     }
+
     if (!formData.address) {
       error = { ...error, address: 'ADDRESS is required!' }
+    } else {
+      error = { ...error, address: '' }
     }
 
     setErrors(error)

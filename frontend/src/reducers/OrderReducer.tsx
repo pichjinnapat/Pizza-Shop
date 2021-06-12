@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../api'
-import { ApiStatus, Order, OrderState, Product, ProductSize, User } from '../types'
+import { ApiStatus, Order, OrderState, Product, ProductSize } from '../types'
 
 const initialState: OrderState = {
   selectedProduct: {} as Product,
   selectedSize: '' as ProductSize,
   selectedNumber: 0,
-  userInfo: {} as User,
+  userInfo: { firstname: '', lastname: '', email: '', address: '' },
   currentOrder: {} as Order,
   customerOrders: [],
   apiStatus: ApiStatus.idle,
