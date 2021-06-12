@@ -41,6 +41,9 @@ export type ProductState = {
 }
 
 export type OrderState = {
+  selectedProduct: Product
+  selectedSize: ProductSize
+  selectedNumber: number
   currentOrder: Order
   customerOrders: Order[]
   apiStatus: ApiStatus

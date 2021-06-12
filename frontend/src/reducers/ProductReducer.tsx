@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../api'
-import { ApiStatus, ProductState } from '../types'
+import { ApiStatus, Product, ProductState } from '../types'
 
 const initialState: ProductState = {
   products: [],
@@ -15,7 +15,7 @@ const asyncReducers = {
   }),
 }
 
-const orderSlice = createSlice({
+const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
@@ -25,8 +25,20 @@ const orderSlice = createSlice({
     'getProducts/pending': (productState: ProductState) => {
       return { ...productState, apiStatus: ApiStatus.pending }
     },
-    'getProducts/fulfilled': (productState: ProductState, action) => {
-      return { ...productState, products: action.payload, apiStatus: ApiStatus.fulfilled }
+    'getProducts/fulfilled': (
+      productState: ProductState,
+      action: { payload: Product[]; type: string }
+    ) => {
+      return {
+        ...productState,
+        products: action.payload.map((product) => ({
+          ...product,
+          price_s: Number(product.price_s),
+          price_m: Number(product.price_m),
+          price_l: Number(product.price_l),
+        })),
+        apiStatus: ApiStatus.fulfilled,
+      }
     },
     'getProducts/rejected': (productState: ProductState, action) => {
       return { ...productState, error: action.payload, apiStatus: ApiStatus.rejected }
@@ -36,6 +48,6 @@ const orderSlice = createSlice({
 
 export const { getProducts } = asyncReducers
 
-export const { initialProductState } = orderSlice.actions
+export const { initialProductState } = productSlice.actions
 
-export default orderSlice.reducer
+export default productSlice.reducer
