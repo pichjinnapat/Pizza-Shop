@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react'
 const SiteFooter: FunctionComponent = () => {
   return (
     <div className=" bg-secondary mt-auto w-full flex justify-between px-6 py-2 z-50">
-      <div className="container mx-auto text-lg text-white">© 2021 Jinnapat Janboonpeng</div>
+      <div className="container mx-auto text-lg text-white my-auto">© 2021 Jinnapat J.</div>
       <div className="flex">
         <a href="https://github.com/pichjinnapat/Pizza-Shop" className="mx-1">
           <svg
