@@ -1,21 +1,20 @@
 version: "3"
 services:
-  # frontend:
-  #   image: node:12
-  #   restart: always
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./frontend:/usr/app
-  #     - ./upload:/usr/app/public/upload
-  #   command:
-  #     - /bin/bash
-  #     - -c
-  #     - |
-  #       cd /usr/app
-  #       npm start
-  #   depends_on:
-  #     - backend
+  frontend:
+    image: node:12
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/usr/app
+    command:
+      - /bin/bash
+      - -c
+      - |
+        cd /usr/app
+        npm start
+    depends_on:
+      - backend
   backend:
     image: node:12
     restart: always

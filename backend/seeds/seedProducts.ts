@@ -5,19 +5,19 @@ import { ProductType } from '../src/products'
 export async function seed(knex: Knex): Promise<void> {
   const products: ProductType[] = [
     {
-      type: 'margarita',
+      type: 'Margarita',
       price_s: 3.0,
       price_m: 5.0,
       price_l: 8.0,
     },
     {
-      type: 'marinara',
+      type: 'Marinara',
       price_s: 3.0,
       price_m: 5.0,
       price_l: 8.0,
     },
     {
-      type: 'salami',
+      type: 'Salami',
       price_s: 3.0,
       price_m: 5.0,
       price_l: 8.0,
