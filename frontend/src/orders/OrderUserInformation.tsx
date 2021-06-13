@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import Button from '../components/Button'
 import Layout from '../components/Layout'
+import productSizeName from '../lib/productSizeName'
 import { setUserInfo } from '../reducers/OrderReducer'
-import { OrderState, Product, ProductSize } from '../types'
+import { OrderState } from '../types'
 import { OrderRoutes } from './OrderRouters'
 
 type UserFormType = {
-  firstname: string
-  lastname: string
+  first_name: string
+  last_name: string
   email: string
   address: string
 }
@@ -17,25 +18,11 @@ type UserFormType = {
 const OrderUserInformation: FunctionComponent = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { selectedProduct, selectedSize, selectedNumber, userInfo } = useSelector(
+  const { selectedProduct, selectedSize, selectedNumber, totalPrice, userInfo } = useSelector(
     (state: { orders: OrderState }) => state.orders
   )
   const [formData, setFormdata] = useState<UserFormType>(userInfo)
   const [errors, setErrors] = useState<UserFormType>({} as UserFormType)
-
-  const productSizeName = (size: ProductSize): string => {
-    if (size === ProductSize.SMALL) return 'Small'
-    if (size === ProductSize.MEDIUM) return 'Medium'
-    if (size === ProductSize.LARGE) return 'Large'
-    return ''
-  }
-
-  const getTotalPrice = (product: Product, size: ProductSize, number: number): number => {
-    if (size === ProductSize.SMALL) return product.price_s * number
-    if (size === ProductSize.MEDIUM) return product.price_m * number
-    if (size === ProductSize.LARGE) return product.price_l * number
-    return 0
-  }
 
   const validateEmail = (inputText: string): boolean => {
     const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@([\w-]+\.)+[a-zA-Z0-9-]{2,4}$/
@@ -55,16 +42,16 @@ const OrderUserInformation: FunctionComponent = () => {
     e.preventDefault()
     let error: UserFormType = errors
 
-    if (!formData.firstname) {
-      error = { ...error, firstname: 'FIRSTNAME is required!' }
+    if (!formData.first_name) {
+      error = { ...error, first_name: 'FIRSTNAME is required!' }
     } else {
-      error = { ...error, firstname: '' }
+      error = { ...error, first_name: '' }
     }
 
-    if (!formData.lastname) {
-      error = { ...error, lastname: 'LASTNAME is required!' }
+    if (!formData.last_name) {
+      error = { ...error, last_name: 'LASTNAME is required!' }
     } else {
-      error = { ...error, lastname: '' }
+      error = { ...error, last_name: '' }
     }
 
     if (!formData.email) {
@@ -85,7 +72,7 @@ const OrderUserInformation: FunctionComponent = () => {
 
     setErrors(error)
 
-    if (!error.firstname && !error.lastname && !error.email && !error.address) {
+    if (!error.first_name && !error.last_name && !error.email && !error.address) {
       dispatch(setUserInfo(formData))
       history.push(OrderRoutes.ORDER_PAYMENT)
     }
@@ -124,11 +111,7 @@ const OrderUserInformation: FunctionComponent = () => {
 
           <div className="text-xl text-right flex justify-end">
             <p>Total&nbsp;</p>
-            <div className="text-bold">{`$${getTotalPrice(
-              selectedProduct,
-              selectedSize,
-              selectedNumber
-            )}.-`}</div>
+            <div className="text-bold">{`$${totalPrice}.-`}</div>
           </div>
         </div>
       </div>
@@ -140,27 +123,29 @@ const OrderUserInformation: FunctionComponent = () => {
         <p className="text-3xl font-bold my-2">Your Information</p>
         <div className="grid grid-cols-2">
           <div className="w-full px-1 min-h-12 sm:h-12 flex flex-wrap my-2 col-span-2 sm:col-span-1">
-            <div className={`label-text-input w-1/3 ${errors.firstname && 'error'}`}>
+            <div className={`label-text-input w-1/3 ${errors.first_name && 'error'}`}>
               First Name
             </div>
             <input
-              id="firstname"
-              className={`text-input w-2/3 ${errors.firstname && 'error'}`}
+              id="first_name"
+              value={formData.first_name}
+              className={`text-input w-2/3 ${errors.first_name && 'error'}`}
               onChange={handleChange}
               onBlur={onBlurValidation}
             />
-            <p className={`error-text ${!errors.firstname && 'visible'}`}>{errors.firstname}</p>
+            <p className={`error-text ${!errors.first_name && 'visible'}`}>{errors.first_name}</p>
           </div>
 
           <div className="w-full px-1 min-h-12 sm:h-12 flex flex-wrap my-2 col-span-2 sm:col-span-1">
-            <div className={`label-text-input w-1/3 ${errors.lastname && 'error'}`}>Last Name</div>
+            <div className={`label-text-input w-1/3 ${errors.last_name && 'error'}`}>Last Name</div>
             <input
-              id="lastname"
-              className={`text-input w-2/3 ${errors.lastname && 'error'}`}
+              id="last_name"
+              value={formData.last_name}
+              className={`text-input w-2/3 ${errors.last_name && 'error'}`}
               onChange={handleChange}
               onBlur={onBlurValidation}
             />
-            <p className={`error-text ${!errors.lastname && 'visible'}`}>{errors.lastname}</p>
+            <p className={`error-text ${!errors.last_name && 'visible'}`}>{errors.last_name}</p>
           </div>
 
           <div className="w-full px-1 h-12 flex flex-wrap my-2 col-span-2">
@@ -169,6 +154,7 @@ const OrderUserInformation: FunctionComponent = () => {
             </div>
             <input
               id="email"
+              value={formData.email}
               className={`text-input w-2/3 sm:w-4/5 ${errors.email && 'error'}`}
               onChange={handleChange}
               onBlur={onBlurValidation}
@@ -182,6 +168,7 @@ const OrderUserInformation: FunctionComponent = () => {
             </div>
             <textarea
               id="address"
+              value={formData.address}
               rows={3}
               className={`textarea-input w-2/3 sm:w-4/5 ${errors.address && 'error'}`}
               onChange={handleChange}
@@ -190,8 +177,9 @@ const OrderUserInformation: FunctionComponent = () => {
             <p className={`error-text ${!errors.address && 'visible'}`}>{errors.address}</p>
           </div>
         </div>
-        <div className="w-full flex justify-between ">
-          <Button secondary onClick={() => history.goBack()}>
+
+        <div className="w-full flex justify-between">
+          <Button secondary onClick={() => history.push(OrderRoutes.ORDER_INDEX)}>
             &nbsp;&nbsp;Back&nbsp;&nbsp;
           </Button>
           <Button type="submit">&nbsp;&nbsp;Next&nbsp;&nbsp;</Button>

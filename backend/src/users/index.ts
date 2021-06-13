@@ -41,25 +41,23 @@ const createUser = async (req, res): Promise<void> => {
   try {
     const user: User = req.body
     const { error } = userSchema.validate(user)
-    let returningUser: User = {} as User
 
     if (error) {
       throw new ValidationError(error.message)
     }
-
+    let returningUser: User
     const client = await db().connect()
 
-    const { rows: existingUsers } = await client.query(
-      `SELECT * FROM users WHERE email = ${user.email}`
-    )
-
-    if (existingUsers.length > 0) {
+    const sql = `INSERT INTO users (first_name, last_name, email, address)
+      VALUES ('${user.first_name}', '${user.last_name}', '${user.email}', '${user.address}') ON CONFLICT (email) DO NOTHING RETURNING *;`
+    const { rows } = await client.query(sql)
+    if (rows.length <= 0) {
+      const { rows: existingUsers } = await client.query(
+        `SELECT * FROM users WHERE email = '${user.email}'`
+      )
       const existingUser = existingUsers[0]
       returningUser = existingUser
     } else {
-      const sql = `INSERT INTO users (first_name, last_name, email, address)
-      VALUES ('${user.first_name}', '${user.last_name}', '${user.email}', '${user.address}') RETURNING *;`
-      const { rows } = await client.query(sql)
       const newUser = rows[0]
       returningUser = newUser
     }

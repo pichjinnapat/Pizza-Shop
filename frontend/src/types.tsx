@@ -27,14 +27,15 @@ export type Product = {
 }
 
 export type User = {
-  firstname: string
-  lastname: string
+  id?: number
+  first_name: string
+  last_name: string
   email: string
   address: string
 }
 
 export type Order = {
-  id: number
+  id?: number
   product_id: number
   number: number
   size: string
@@ -47,12 +48,26 @@ export type ProductState = {
   apiStatus: ApiStatus
 }
 
+export type UserState = {
+  user: User
+  apiStatus: ApiStatus
+}
+
 export type OrderState = {
   selectedProduct: Product
   selectedSize: ProductSize
   selectedNumber: number
+  totalPrice: number
   userInfo: User
+  cardInfo: CardFormType
   currentOrder: Order
   customerOrders: Order[]
   apiStatus: ApiStatus
+}
+
+export type CardFormType = {
+  cardNumber: string
+  name: string
+  expiry: string
+  cvc: string | number
 }

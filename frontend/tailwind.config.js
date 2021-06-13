@@ -18,6 +18,9 @@ module.exports = {
       rose: colors.rose,
       orange: colors.orange,
     },
+    animation: {
+      'spin-slow': 'spin 3s linear infinite',
+    },
     extend: {},
   },
   variants: {
