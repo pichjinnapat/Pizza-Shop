@@ -10,7 +10,6 @@ export type User = {
   first_name: string
   last_name: string
   email: string
-  address: string
 } & BaseEntity
 
 const userSchema: ObjectSchema<User> = object({
@@ -48,8 +47,8 @@ const createUser = async (req, res): Promise<void> => {
     let returningUser: User
     const client = await db().connect()
 
-    const sql = `INSERT INTO users (first_name, last_name, email, address)
-      VALUES ('${user.first_name}', '${user.last_name}', '${user.email}', '${user.address}') ON CONFLICT (email) DO NOTHING RETURNING *;`
+    const sql = `INSERT INTO users (first_name, last_name, email)
+      VALUES ('${user.first_name}', '${user.last_name}', '${user.email}') ON CONFLICT (email) DO NOTHING RETURNING *;`
     const { rows } = await client.query(sql)
     if (rows.length <= 0) {
       const { rows: existingUsers } = await client.query(

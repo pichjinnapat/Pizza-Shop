@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     number INTEGER NOT NULL,
     size CHAR NOT NULL,
     status INTEGER NOT NULL,
+    destination_address TEXT NOT NULL,
     user_id SERIAL NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 

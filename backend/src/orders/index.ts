@@ -20,6 +20,7 @@ export type Order = {
   number: number
   size: ProductSize
   status: OrderStatus
+  destination_address: string
   user_id: number
 } & BaseEntity
 
@@ -29,7 +30,8 @@ const orderSchema: ObjectSchema<Order> = object({
     .required()
     .error(new Error('Number of products is required and must be a Number')),
   size: string().required().error(new Error('Product Size is required and must be s, m, l')),
-  status: number().required().error(new Error('Order Status isrequired must be a number')),
+  status: number().required().error(new Error('Order Status is required must be a number')),
+  destination_address: string().required().error(new Error('Address is required must be a number')),
   user_id: number().required().error(new Error('User Id is required and must be a number')),
 })
 
@@ -44,8 +46,8 @@ const createOrder = async (req, res): Promise<void> => {
 
     const client = await db().connect()
 
-    const sql = `INSERT INTO orders (product_id, number, size, status, user_id)
-    VALUES ('${order.product_id}', '${order.number}', '${order.size}', '${order.status}', '${order.user_id}') RETURNING *;`
+    const sql = `INSERT INTO orders (product_id, number, size, status, destination_address, user_id)
+    VALUES ('${order.product_id}', '${order.number}', '${order.size}', '${order.status}', '${order.destination_address}', '${order.user_id}') RETURNING *;`
     const { rows } = await client.query(sql)
     const newOrder: Order = rows[0]
 
@@ -96,6 +98,7 @@ const updateOrder = async (req, res): Promise<void> => {
     number = '${order.number}',
     size = '${order.size}',
     status = '${order.status}',
+    destination_address: '${order.destination_address}'
     user_id = '${order.user_id}'
     WHERE id = ${orderId} RETURNING *;`
     const { rows } = await client.query(sql)
