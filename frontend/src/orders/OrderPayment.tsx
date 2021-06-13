@@ -13,8 +13,15 @@ import { setCardInfo } from '../reducers/OrderReducer'
 const OrderPayment: FunctionComponent = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { selectedProduct, selectedSize, selectedNumber, totalPrice, userInfo, cardInfo } =
-    useSelector((state: { orders: OrderState }) => state.orders)
+  const {
+    selectedProduct,
+    selectedSize,
+    selectedNumber,
+    totalPrice,
+    destination_address,
+    userInfo,
+    cardInfo,
+  } = useSelector((state: { orders: OrderState }) => state.orders)
 
   const [formData, setFormdata] = useState<CardFormType>(cardInfo)
   const [errors, setErrors] = useState<CardFormType>({
@@ -116,7 +123,7 @@ const OrderPayment: FunctionComponent = () => {
         </div>
         <div>
           <b>Address : </b>
-          {userInfo.address}
+          {destination_address}
         </div>
       </div>
 

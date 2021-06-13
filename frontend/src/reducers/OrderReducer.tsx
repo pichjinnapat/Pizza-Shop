@@ -7,7 +7,8 @@ const initialState: OrderState = {
   selectedSize: '' as ProductSize,
   selectedNumber: 0,
   totalPrice: 0,
-  userInfo: { first_name: '', last_name: '', email: '', address: '' },
+  destination_address: '',
+  userInfo: { first_name: '', last_name: '', email: '' },
   cardInfo: { cardNumber: '', name: '', expiry: '', cvc: '' },
   currentOrder: {} as Order,
   customerOrders: [],
@@ -22,6 +23,7 @@ const asyncReducers = {
       number: number
       size: string
       status: OrderStatus
+      destination_address: string
       user_id: number
     }) => {
       const data = { ...params }
@@ -53,7 +55,11 @@ const orderSlice = createSlice({
       return { ...orderState, totalPrice: action.payload }
     },
     setUserInfo: (orderState: OrderState, action) => {
-      return { ...orderState, userInfo: action.payload }
+      return {
+        ...orderState,
+        userInfo: action.payload,
+        destination_address: action.payload.address,
+      }
     },
     setCardInfo: (orderState: OrderState, action) => {
       return { ...orderState, cardInfo: action.payload }

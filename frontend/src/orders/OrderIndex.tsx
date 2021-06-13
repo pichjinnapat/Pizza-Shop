@@ -10,6 +10,7 @@ import {
   setTotalPrice,
 } from '../reducers/OrderReducer'
 import { getProducts } from '../reducers/ProductReducer'
+import { initialUserState } from '../reducers/UserReducer'
 import { OrderState, ProductSize, ProductState } from '../types'
 import ProductSelector from './components/ProductSelector'
 import { OrderRoutes } from './OrderRouters'
@@ -40,6 +41,7 @@ const OrderIndex: FunctionComponent = () => {
     return () => {
       if (history.location.pathname !== OrderRoutes.ORDER_USER_INFORMATION) {
         dispatch(initialOrderState())
+        dispatch(initialUserState())
       }
     }
   }, [dispatch, history.location.pathname])

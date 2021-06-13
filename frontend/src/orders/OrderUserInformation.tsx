@@ -18,10 +18,18 @@ type UserFormType = {
 const OrderUserInformation: FunctionComponent = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { selectedProduct, selectedSize, selectedNumber, totalPrice, userInfo } = useSelector(
-    (state: { orders: OrderState }) => state.orders
-  )
-  const [formData, setFormdata] = useState<UserFormType>(userInfo)
+  const {
+    selectedProduct,
+    selectedSize,
+    selectedNumber,
+    totalPrice,
+    destination_address,
+    userInfo,
+  } = useSelector((state: { orders: OrderState }) => state.orders)
+  const [formData, setFormdata] = useState<UserFormType>({
+    ...userInfo,
+    address: destination_address,
+  })
   const [errors, setErrors] = useState<UserFormType>({} as UserFormType)
 
   const validateEmail = (inputText: string): boolean => {

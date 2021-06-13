@@ -153,14 +153,17 @@ const getOrdersByStatus = async (req, res): Promise<void> => {
 
 const getOrdersByCustomer = async (req, res): Promise<void> => {
   try {
-    const customerEmail = req.params.email
+    const customerEmail = req.body.email
 
     const client = await db().connect()
 
-    const { rows: user } = await client.query(`SELECT * FROM user WHERE email = ${customerEmail}`)
+    const { rows: user } = await client.query(
+      `SELECT * FROM users WHERE email = '${customerEmail}'`
+    )
 
     const sql = `SELECT * FROM orders WHERE user_id = ${user[0].id}`
     const { rows } = await client.query(sql)
+
     const orders: Order[] = rows
 
     client.release()

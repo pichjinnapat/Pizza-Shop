@@ -20,6 +20,7 @@ const OrderSummary: FunctionComponent = () => {
     selectedSize,
     selectedNumber,
     totalPrice,
+    destination_address,
     userInfo,
     cardInfo,
     apiStatus: OrderApiStatus,
@@ -40,6 +41,7 @@ const OrderSummary: FunctionComponent = () => {
           number: selectedNumber,
           size: selectedSize,
           status: OrderStatus.NEW,
+          destination_address,
           user_id: user.id || 0,
         })
       )
@@ -57,6 +59,10 @@ const OrderSummary: FunctionComponent = () => {
   useEffect(() => {
     if (!selectedProduct.type || !selectedSize || !selectedNumber) {
       history.push(OrderRoutes.ORDER_INDEX)
+    }
+
+    return () => {
+      setAgreeTerms(false)
     }
   }, [history, selectedNumber, selectedProduct, selectedSize])
 
@@ -88,7 +94,7 @@ const OrderSummary: FunctionComponent = () => {
         </div>
         <div>
           <b>Address : </b>
-          {userInfo.address}
+          {destination_address}
         </div>
       </div>
 

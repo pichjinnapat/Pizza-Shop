@@ -20,7 +20,7 @@ const OrderConfirmaion: FunctionComponent = () => {
         <p className="text-3xl text-center font-bold">{`Congratulations ${user.first_name}!!`}</p>
         <p className="text-2xl text-center">{`Your ${currentOrder.number}x ${productSizeName(
           currentOrder.size as ProductSize
-        )} ${currentProduct?.type} will be there soon!`}</p>
+        )} ${currentProduct?.type} are on the way to ${currentOrder.destination_address}!`}</p>
       </div>
     </Layout>
   )

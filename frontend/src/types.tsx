@@ -31,7 +31,6 @@ export type User = {
   first_name: string
   last_name: string
   email: string
-  address: string
 }
 
 export type Order = {
@@ -40,6 +39,7 @@ export type Order = {
   number: number
   size: string
   status: OrderStatus
+  destination_address: string
   user_id: number
 }
 
@@ -58,6 +58,7 @@ export type OrderState = {
   selectedSize: ProductSize
   selectedNumber: number
   totalPrice: number
+  destination_address: string
   userInfo: User
   cardInfo: CardFormType
   currentOrder: Order

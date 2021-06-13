@@ -3,14 +3,14 @@ import api from '../api'
 import { ApiStatus, User, UserState } from '../types'
 
 const initialState: UserState = {
-  user: { first_name: '', last_name: '', email: '', address: '' },
+  user: { first_name: '', last_name: '', email: '' },
   apiStatus: ApiStatus.idle,
 }
 
 const asyncReducers = {
   createUser: createAsyncThunk(
     'users/createUser',
-    async (params: { first_name: string; last_name: string; email: string; address: string }) => {
+    async (params: { first_name: string; last_name: string; email: string }) => {
       const data = { ...params }
 
       const response = await api.post(`/users`, data)
