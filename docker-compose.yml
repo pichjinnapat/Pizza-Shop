@@ -1,4 +1,6 @@
 version: "3"
+volumes:
+  postgres:
 services:
   frontend:
     image: node:12
@@ -42,11 +44,12 @@ services:
     container_name: pg_container
     image: postgres
     restart: always
-    volumes:
-      - ./backend/postgresdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
-      POSTGRES_DB: pizza_shop_db
+      PGDATA: "/data/postgres"
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres:/data/postgres
     ports:
       - "5432:5432"

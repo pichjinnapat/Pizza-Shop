@@ -19,7 +19,11 @@ app.use(pino({ logger }))
 
 app.get('/', (req, res) => {
   try {
-    res.send('OK').status(200)
+    res
+      .send({
+        message: 'OK',
+      })
+      .status(200)
   } catch (error) {
     res.status(error.statusCode).send(error)
   }
